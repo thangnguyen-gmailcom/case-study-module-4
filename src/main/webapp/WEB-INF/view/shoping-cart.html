@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="/layout-home :: head">
+
+</head>
+<body class="animsition">
+
+	<header th:replace="/layout-home:: header-destop"></header>
+	
+	<div th:replace="/layout-home :: cart"></div>
+	
+	<!-- breadcrumb -->
+	<div class="container mt-5">
+		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+			<a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
+				Home
+				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+			</a>
+
+			<span class="stext-109 cl4">
+				Shoping Cart
+			</span>
+		</div>
+	</div>
+		
+
+	<!-- Shoping Cart -->
+	<form class="bg0 p-t-75 p-b-85">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 col-xl-12 m-lr-auto m-b-50">
+					<div class="m-l-25 m-r--38 m-lr-0-xl">
+						<div class="wrap-table-shopping-cart">
+							<table class="table-shopping-cart">
+								<tr class="table_head">
+									<th class="column-1 text-center">Id</th>
+									<th class="column-1">Product</th>
+									<th class="column-2"></th>
+									<th class="column-3">Price</th>
+									<th class="column-4 text-center">Quantity</th>
+									<th class="column-5 text-center">Total</th>
+									<th class="column-5 text-center">Action</th>
+								</tr>
+								<th:block th:if="${session.bill != null}">
+								
+								<tr class="table_row" th:each="billDetail : ${session.bill.billDetails}">
+									<td class="column-1 text-center" th:text="${billDetail.id}"></td>
+									<td class="column-1">
+										<div class="how-itemcart1">
+											<img th:src="@{'/upload/'+${billDetail.product.image}}" alt="IMG">
+										</div>
+									</td>
+									<td class="column-2" th:text="${billDetail.product.productName}"></td>
+									<td class="column-3" th:text="${billDetail.product.price}+VNĐ"></td>
+									<td class="column-4 text-center">
+										<div class="wrap-num-product flex-w m-l-auto m-r-0">
+											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-minus"></i>
+											</div>
+
+											<input class="mtext-104 cl3 txt-center num-product" type="number"
+												th:value="${billDetail.quantity}"
+											>
+
+											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-plus"></i>
+											</div>
+										</div>
+									</td>
+									<td class="column-5" th:text="${billDetail.product.price * billDetail.quantity}+VNĐ"></td>
+									<td>
+										<a th:data-id="${billDetail.id}" class=" stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10 update-cart pt-1 pb-1 update-cart">Edit</a>
+										<a class="stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10 ml-4 pt-1 pb-1"
+										th:href="@{/home/{id}/deleteCart(id=${billDetail.id})}">Delete</a>
+									</td>
+								</tr>
+								</th:block>
+							</table>
+						</div>
+
+						<div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+							<div class="flex-w flex-m m-r-20 m-tb-5">
+								<input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="total" disabled="disabled" th:if="${session.bill !=null}" th:value="'Total : '+${session.bill.total}">
+									
+								<a th:href="@{/home/pay}" class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+									Pay
+								</a>
+							</div>
+							<a th:href="@{/home/deleteCart}"  
+							class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
+								Delete Cart
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+
+	<!-- Footer -->
+	<footer class="bg3 p-t-75 p-b-32">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">Categories</h4>
+
+					<ul>
+						<li class="p-b-10"><a href="#"
+							class="stext-107 cl7 hov-cl1 trans-04"> Women </a></li>
+
+						<li class="p-b-10"><a href="#"
+							class="stext-107 cl7 hov-cl1 trans-04"> Men </a></li>
+
+						<li class="p-b-10"><a href="#"
+							class="stext-107 cl7 hov-cl1 trans-04"> Shoes </a></li>
+
+						<li class="p-b-10"><a href="#"
+							class="stext-107 cl7 hov-cl1 trans-04"> Watches </a></li>
+					</ul>
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">Help</h4>
+
+					<ul>
+						<li class="p-b-10"><a href="#"
+							class="stext-107 cl7 hov-cl1 trans-04"> Track Order </a></li>
+
+						<li class="p-b-10"><a href="#"
+							class="stext-107 cl7 hov-cl1 trans-04"> Returns </a></li>
+
+						<li class="p-b-10"><a href="#"
+							class="stext-107 cl7 hov-cl1 trans-04"> Shipping </a></li>
+
+						<li class="p-b-10"><a href="#"
+							class="stext-107 cl7 hov-cl1 trans-04"> FAQs </a></li>
+					</ul>
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">GET IN TOUCH</h4>
+
+					<p class="stext-107 cl7 size-201">Any questions? Let us know in
+						store at 8th floor, 379 Hudson St, New York, NY 10018 or call us
+						on (+1) 96 716 6879</p>
+
+					<div class="p-t-27">
+						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16"> <i
+							class="fa fa-facebook"></i>
+						</a> <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16"> <i
+							class="fa fa-instagram"></i>
+						</a> <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16"> <i
+							class="fa fa-pinterest-p"></i>
+						</a>
+					</div>
+				</div>
+
+				<div class="col-sm-6 col-lg-3 p-b-50">
+					<h4 class="stext-301 cl0 p-b-30">Newsletter</h4>
+
+					<form>
+						<div class="wrap-input1 w-full p-b-4">
+							<input class="input1 bg-none plh1 stext-107 cl7" type="text"
+								name="email" placeholder="email@example.com">
+							<div class="focus-input1 trans-04"></div>
+						</div>
+
+						<div class="p-t-18">
+							<button
+								class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
+								Subscribe</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="p-t-40">
+				<div class="flex-c-m flex-w p-b-18">
+					<a href="#" class="m-all-1"> <img
+						th:src="@{/shopping-page/images/icons/icon-pay-01.png}" alt="ICON-PAY">
+					</a> <a href="#" class="m-all-1"> <img
+						th:src="@{/shopping-page/images/icons/icon-pay-02.png}" alt="ICON-PAY">
+					</a> <a href="#" class="m-all-1"> <img
+						th:src="@{/shopping-page/images/icons/icon-pay-03.png}" alt="ICON-PAY">
+					</a> <a href="#" class="m-all-1"> <img
+						th:src="@{/shopping-page/images/icons/icon-pay-04.png}" alt="ICON-PAY">
+					</a> <a href="#" class="m-all-1"> <img
+						th:src="@{/shopping-page/images/icons/icon-pay-05.png}" alt="ICON-PAY">
+					</a>
+				</div>
+
+				<p class="stext-107 cl6 txt-center">
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+					Copyright &copy;
+					<script>
+						document.write(new Date().getFullYear());
+					</script>
+					All rights reserved | This template is made with <i
+						class="fa fa-heart-o" aria-hidden="true"></i> by <a
+						href="https://colorlib.com" target="_blank">Colorlib</a>.
+					Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a>
+					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+
+				</p>
+			</div>
+		</div>
+	</footer>
+
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top"> <i
+			class="zmdi zmdi-chevron-up"></i>
+		</span>
+	</div>
+
+	
+	
+
+	<!--===============================================================================================-->
+	<script th:src="@{/shopping-page/vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/shopping-page/vendor/animsition/js/animsition.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/shopping-page/vendor/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/shopping-page/vendor/bootstrap/js/bootstrap.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/shopping-page/vendor/select2/select2.min.js}"></script>
+	<script>
+		$(".js-select2").each(function() {
+			$(this).select2({
+				minimumResultsForSearch : 20,
+				dropdownParent : $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+	<!--===============================================================================================-->
+	<script th:src="@{/shopping-page/vendor/daterangepicker/moment.min.js}"></script>
+	<script th:src="@{/shopping-page/vendor/daterangepicker/daterangepicker.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/shopping-page/vendor/slick/slick.min.js}"></script>
+	<script th:src="@{/shopping-page/js/slick-custom.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/shopping-page/vendor/parallax100/parallax100.js}"></script>
+	<script>
+		$('.parallax100').parallax100();
+	</script>
+	<!--===============================================================================================-->
+	<script th:src="@{/shopping-page/vendor/MagnificPopup/jquery.magnific-popup.min.js}"></script>
+	<script>
+		$('.gallery-lb').each(function() { // the containers for all your galleries
+			$(this).magnificPopup({
+				delegate : 'a', // the selector for gallery item
+				type : 'image',
+				gallery : {
+					enabled : true
+				},
+				mainClass : 'mfp-fade'
+			});
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script th:src="@{/shopping-page/vendor/isotope/isotope.pkgd.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{/shopping-page/vendor/sweetalert/sweetalert.min.js}"></script>
+	<script>
+		$('.js-addwish-b2').on('click', function(e) {
+			e.preventDefault();
+		});
+
+		$('.js-addwish-b2').each(
+				function() {
+					var nameProduct = $(this).parent().parent().find(
+							'.js-name-b2').html();
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to wishlist !", "success");
+
+						$(this).addClass('js-addedwish-b2');
+						$(this).off('click');
+					});
+				});
+
+		$('.js-addwish-detail').each(
+				function() {
+					var nameProduct = $(this).parent().parent().parent().find(
+							'.js-name-detail').html();
+
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to wishlist !", "success");
+
+						$(this).addClass('js-addedwish-detail');
+						$(this).off('click');
+					});
+				});
+
+		/*---------------------------------------------*/
+
+		$('.js-addcart-detail').each(
+				function() {
+					var nameProduct = $(this).parent().parent().parent()
+							.parent().find('.js-name-detail').html();
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to cart !", "success");
+					});
+				});
+	</script>
+	<!--===============================================================================================-->
+	<script th:src="@{/shopping-page/vendor/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+	<script>
+		$('.js-pscroll').each(function() {
+			$(this).css('position', 'relative');
+			$(this).css('overflow', 'hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed : 1,
+				scrollingThreshold : 1000,
+				wheelPropagation : false,
+			});
+
+			$(window).on('resize', function() {
+				ps.update();
+			})
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script th:src="@{/shopping-page/js/main.js}"></script>
+	<script type="text/javascript">
+	$(".update-cart").on("click",function(){
+		var id = $(this).data("id");
+		var quantity = $(".num-product").val();
+		window.location="updateCart/"+id+"/"+quantity;
+	});
+	</script>
+</body>
+</html>

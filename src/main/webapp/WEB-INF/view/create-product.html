@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: header">
+<title>Create Product Type</title>
+</head>
+<body class="animsition">
+	<div class="page-wrapper">
+		<header th:replace="/layout :: header-mobile"></header>
+		<aside th:replace="/layout :: sidebar"></aside>
+		<div class="page-container">
+			<header th:replace="/layout :: header-desktop"></header>
+			<div class="main-content">
+				<div class="section__content section__content--p30">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="card">
+									<div class="card-header">
+										<strong>Create Product</strong> Form
+									</div>
+									<div class="card-body card-block">
+										<form th:action="@{/product/create}" enctype="multipart/form-data" method="post"
+											th:object="${product}" class="form-horizontal">
+											<div class="row form-group">
+												<div class="col col-md-3">
+													<label class=" form-control-label">Product Name</label>
+												</div>
+												<div class="col-12 col-md-9">
+													<input type="text" th:field="*{productName}"
+														placeholder="Enter Product Name ..." class="form-control">
+													<small class="form-text text-muted"
+														th:if="${#fields.hasErrors('productName')}"
+														th:errors="*{productName}">Name Error</small>
+												</div>
+											</div>
+											<div class="row form-group">
+												<div class="col col-md-3">
+													<label class=" form-control-label">Description</label>
+												</div>
+												<div class="col-12 col-md-9">
+													<textarea id="summernote-descripton" th:field="*{description}"
+														 class="form-control"></textarea>
+													<small class="form-text text-muted"
+														th:if="${#fields.hasErrors('description')}"
+														th:errors="*{description}">Name Error</small>
+												</div>
+											</div>
+											<div class="row form-group">
+												<div class="col col-md-3">
+													<label class=" form-control-label">Price</label>
+												</div>
+												<div class="col-12 col-md-9">
+													<input type="text" th:field="*{price}"
+														placeholder="Enter Product Price ..." class="form-control">
+													<small class="form-text text-muted"
+														th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Name
+														Error</small>
+												</div>
+											</div>
+											<div class="row form-group">
+												<div class="col col-md-3">
+													<label class=" form-control-label">Quantity In
+														Stock</label>
+												</div>
+												<div class="col-12 col-md-9">
+													<input type="text" th:field="*{quantityInStock}"
+														placeholder="Enter Quantity In Stock ..." class="form-control">
+													<small class="form-text text-muted"
+														th:if="${#fields.hasErrors('quantityInStock')}"
+														th:errors="*{quantityInStock}">Name Error</small>
+												</div>
+											</div>
+											<div class="row form-group">
+												<div class="col col-md-3">
+													<label class=" form-control-label">Image</label>
+												</div>
+												<div class="col-12 col-md-9">
+												<input type="hidden" th:field="*{image}"
+                                                       placeholder="Name"
+                                                       class="form-control">
+													<input type="file" th:field="*{imageMutil}" multiple="multiple"
+														placeholder="Enter Product Image ..." class="form-control-file">
+												</div>
+											</div>
+											<div class="row form-group">
+												<div class="col col-md-3">
+													<label class=" form-control-label">Product Type</label>
+												</div>
+												<div class="col-12 col-md-9">
+													<select  class="form-control"
+														th:field="*{productType.id}">
+														<option class="form-control"
+															th:each="pt : ${listProductType}"
+															th:text="${pt.getProductType()}" 
+															th:value="${pt.getId()}">
+														</option>
+													</select>
+													<!-- <small class="form-text text-muted"
+														th:if="${#fields.hasErrors('productType')}" th:errors="*{productType}">Name
+														Error</small> -->
+												</div>
+											</div>
+
+											<div class="card-footer">
+												<button type="submit" class="btn btn-primary btn-sm">
+													<i class="fa fa-dot-circle-o"></i> Submit
+												</button>
+												<button type="reset" class="btn btn-danger btn-sm">
+													<i class="fa fa-ban"></i> Reset
+												</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Jquery JS-->
+	<script th:src="@{/cooladmin/vendor/jquery-3.2.1.min.js}"></script>
+	<!-- Bootstrap JS-->
+	<script th:src="@{/cooladmin/vendor/bootstrap-4.1/popper.min.js}"></script>
+	<script th:src="@{/cooladmin/vendor/bootstrap-4.1/bootstrap.min.js}"></script>
+	<!-- Vendor JS       -->
+	<script th:src="@{/cooladmin/vendor/slick/slick.min.js}">
+		
+	</script>
+	<script th:src="@{/cooladmin/vendor/wow/wow.min.js}"></script>
+	<script th:src="@{/cooladmin/vendor/animsition/animsition.min.js}"></script>
+	<script
+		th:src="@{/cooladmin/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js}">
+		
+	</script>
+	<script
+		th:src="@{/cooladmin/vendor/counter-up/jquery.waypoints.min.js}"></script>
+	<script
+		th:src="@{/cooladmin/vendor/counter-up/jquery.counterup.min.js}">
+		
+	</script>
+	<script
+		th:src="@{/cooladmin/vendor/circle-progress/circle-progress.min.js}"></script>
+	<script
+		th:src="@{/cooladmin/vendor/perfect-scrollbar/perfect-scrollbar.js}"></script>
+	<script th:src="@{/cooladmin/vendor/chartjs/Chart.bundle.min.js}"></script>
+	<script th:src="@{/cooladmin/vendor/select2/select2.min.js}">
+		
+	</script>
+	
+	<!-- summer note -->
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+	<script type="text/javascript">
+		$('#summernote-descripton').summernote({
+			placeholder : 'Enter the description',
+			tabsize:2,
+			height:200
+		});
+	</script>
+
+	<!-- Main JS-->
+	<script th:src="@{/cooladmin/js/main.js}"></script>
+</body>
+</html>
